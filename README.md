@@ -26,9 +26,9 @@ Add `import-newlines` to the plugins section of your `.eslintrc` configuration f
 
 ```json
 {
-    "plugins": [
-        "import-newlines"
-    ]
+  "plugins": [
+    "import-newlines"
+  ]
 }
 ```
 
@@ -36,9 +36,9 @@ Then add the rule in the rules section.
 
 ```json
 {
-    "rules": {
-        "import-newlines/enforce": "error"
-    }
+  "rules": {
+    "import-newlines/enforce": "error"
+  }
 }
 ```
 
@@ -48,19 +48,26 @@ The first and most readable way is to use an object which allows you to specify 
 
   ```json
   {
-      "rules": {
-          "max-len": ["error", 100],
-          "semi": ["error", "never"],
-          "import-newlines/enforce": [
-              "error",
-              {
-                  "items": 2,
-                  "max-len": 100,
-                  "semi": false
-              }
-          ]
+  "rules": {
+    "max-len": [
+      "error",
+      100
+    ],
+    "semi": [
+      "error",
+      "never"
+    ],
+    "import-newlines/enforce": [
+      "error",
+      {
+        "items": 2,
+        "max-len": 100,
+        "semi": false,
+        "comments": "preserve"
       }
+    ]
   }
+}
   ```
 
 Because of its easy expandability this is the only format that will allow you to configure any new options &ndash; should they be added &ndash; but there is also a shorter syntax that will let you configure just the first two and keep everything else default.
@@ -69,28 +76,31 @@ To specify `items` as **6**:
 
   ```json
   {
-      "rules": {
-          "import-newlines/enforce": [
-              "error",
-              6
-          ]
-      }
+  "rules": {
+    "import-newlines/enforce": [
+      "error",
+      6
+    ]
   }
+}
   ```
 
 To specify `items` as **4** and `max-len` as **120**:
 
   ```json
   {
-      "rules": {
-          "max-len": ["error", 120],
-          "import-newlines/enforce": [
-              "error",
-              4,
-              120
-          ]
-      }
+  "rules": {
+    "max-len": [
+      "error",
+      120
+    ],
+    "import-newlines/enforce": [
+      "error",
+      4,
+      120
+    ]
   }
+}
   ```
 
 #### `items` [number] (default: `4`)
@@ -108,6 +118,10 @@ Specifies the maximum length for source code lines in your project. This allows 
 Indicates whether you want to have semicolons at the end of your imports. This is used in the maximum length calculation for the previous rule, so be sure to set this to false if your code style does not use semicolons at the end of imports otherwise it can lead to some unexpected automatic fixes.
 
 Note that this **does not enforce** the use of semicolons, use the built-in ESLint `semi` rule to control that. Setting this to the right value merely aims to ensure that the plugin will not produce conflicting quick fixes.
+
+#### `comments` ["preserve" | "strip"] (default: `"strip"`)
+
+This option can be set to `"preserve"` to enable additional which will attempt to keep comments inside the import statement. This is off by default to maintain backwards compatibility, and must be opted into if this behavior is desired.
 
 ### Testing
 

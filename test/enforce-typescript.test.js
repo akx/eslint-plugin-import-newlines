@@ -129,6 +129,15 @@ ruleTester.run('enforce', rule, {
         semi: true,
       }],
     },
+    {
+      code: "import {\n\tsomeValue\n\t// @ts-ignore\n} from './module';",
+      options: [{
+        items: 4,
+        'max-len': 140,
+        semi: true,
+        preserveComments: true,
+      }],
+    },
   ],
 
   invalid: [
@@ -239,6 +248,17 @@ ruleTester.run('enforce', rule, {
         semi: true,
       }],
       errors: [{ messageId: 'mustSplitLong' }],
+    },
+    {
+      code: "import {\n\tsomeValue\n\t// @ts-ignore\n} from './module';",
+      output: "import {\n\tsomeValue\n} from './module';",
+      options: [{
+        items: 4,
+        'max-len': 140,
+        semi: true,
+        comments: 'strip',
+      }],
+      errors: [{ messageId: 'noComments' }],
     },
   ],
 });
