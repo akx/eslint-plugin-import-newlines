@@ -190,6 +190,12 @@ ruleTester.run('enforce', rule, {
         forceSingleLine: false,
       }],
     },
+    {
+      code: `import ${repeatString('a', 73)} from './${repeatString('a', 73)}';`,
+      options: [{
+        'max-len': 140,
+      }],
+    },
   ],
 
   invalid: [
